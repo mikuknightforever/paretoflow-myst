@@ -1,12 +1,12 @@
 # ParetoFlow original paper with interactive companions
 
-This repository contains the MyST article, appendix, original figures and tables, and reading supplements. It retains the wording and structure of Ye Yuan, Can (Sam) Chen, Christopher Pal and Xue Liu's paper, **ParetoFlow: Guided Flows in Multi-Objective Optimization**, pinned to [arXiv:2412.03718v2](https://arxiv.org/html/2412.03718v2), 20 February 2025, CC BY 4.0. It uses the standard `article-theme` with a checked citation-preview patch. This is an attributed interactive edition, not the authors' official repository.
+This repository contains the MyST article, appendix, original figures and tables, and reading supplements. It retains the wording and structure of Ye Yuan, Can (Sam) Chen, Christopher Pal and Xue Liu's paper, **ParetoFlow: Guided Flows in Multi-Objective Optimization**, pinned to [arXiv:2412.03718v2](https://arxiv.org/html/2412.03718v2), 20 February 2025, CC BY 4.0. It uses the unmodified standard `article-theme`. This is an attributed interactive edition, not the authors' official repository.
 
 The interactive applications and experimental records are maintained independently in **[paretoflow-dash](https://github.com/mikuknightforever/paretoflow-dash)**. The article embeds Dash pages over HTTP; neither repository imports files from the other. They may be cloned to any directories and updated separately.
 
 ## Read locally
 
-The article requires Node.js 20+, Bun and PowerShell. First-time startup downloads the pinned MyST CLI and article theme, then validates and applies the citation-preview patch.
+The Windows launch scripts require Node.js 20+, Bun and PowerShell. First-time startup downloads the pinned MyST CLI and the standard article theme. The scripts run MyST 1.10.1 with Bun and leave the theme unmodified.
 
 In one terminal, clone and start the article:
 
@@ -31,7 +31,9 @@ This remains a local preview: repository pages do not run the dashboards. The if
 
 ## Build and validation
 
-Run `./build.ps1 -SiteOnly` to build the four MyST pages or `./build.ps1` to export static HTML. Both commands verify the theme patch before and after the build. See [theme/README.md](theme/README.md) for the patch and its regression tests. Dash tests and experiment validation belong to the [Dash repository](https://github.com/mikuknightforever/paretoflow-dash/blob/main/VALIDATION.md).
+Run `./build.ps1 -SiteOnly` to build the four MyST pages or `./build.ps1` to export static HTML. Both use the standard MyST article theme. Dash tests and experiment validation belong to the [Dash repository](https://github.com/mikuknightforever/paretoflow-dash/blob/main/VALIDATION.md).
+
+When upgrading an existing checkout that used the former citation-preview patch, stop its preview and rebuild from a clean `_build` directory to avoid reusing the modified theme cache. Each original bibliography entry remains a single labeled paragraph so its hover preview includes the full reference.
 
 ## Article structure
 

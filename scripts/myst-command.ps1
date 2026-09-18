@@ -7,7 +7,7 @@ function Invoke-ParetoMyst {
     if (-not (Test-Path -LiteralPath $paretoBun)) { throw 'Bun is required to run MyST on Windows. Install Bun and reopen the terminal.' }
     $paretoCli = Join-Path $env:USERPROFILE '.bun\install\cache\mystmd@1.10.1@@@1\dist\myst.cjs'
     if ($env:PARETO_MYST_CLI) { $paretoCli = $env:PARETO_MYST_CLI }
-    # The pinned CLI's template globs mishandle absolute Windows paths under Node.
+    # Reuse the pinned CLI when it is already cached locally.
     if (Test-Path -LiteralPath $paretoCli) {
         & $paretoBun $paretoCli @MystArguments
     } else {
@@ -16,11 +16,11 @@ function Invoke-ParetoMyst {
     if ($LASTEXITCODE -ne 0) { throw "MyST command failed with exit code $LASTEXITCODE." }
 }
 
-function Initialize-ParetoArticleTheme {
+function Initialize-ParetoArticleTemplate {
     param([string] $ArticleRoot)
     $paretoTemplate = Join-Path $ArticleRoot '_build\templates\site\myst\article-theme'
     if (-not (Test-Path -LiteralPath (Join-Path $paretoTemplate 'package.json'))) {
-        # MyST 1.10.1 does not flatten the archive correctly with an absolute Windows path.
+        # Download the standard template into the project's relative cache path.
         Push-Location $ArticleRoot
         try {
             Invoke-ParetoMyst -MystArguments @('templates', 'download', '--site', 'article-theme', '_build/templates/site/myst/article-theme')
@@ -28,6 +28,4 @@ function Initialize-ParetoArticleTheme {
             Pop-Location
         }
     }
-    & node (Join-Path $ArticleRoot 'theme\patch-article-theme.cjs') $paretoTemplate
-    if ($LASTEXITCODE -ne 0) { throw 'Article theme verification failed; preview/build was not started.' }
 }
