@@ -1,14 +1,37 @@
 # ParetoFlow original paper with interactive companions
 
-This MyST edition retains the wording and structure of Ye Yuan, Can (Sam) Chen, Christopher Pal and Xue Liu's paper, **ParetoFlow: Guided Flows in Multi-Objective Optimization**, pinned to [arXiv:2412.03718v2](https://arxiv.org/html/2412.03718v2), 20 February 2025, CC BY 4.0. It uses the standard `article-theme`. Dash runs in the separate sibling `ParetoFlow-Dash` project.
+This repository contains the MyST article, appendix, original figures and tables, and reading supplements. It retains the wording and structure of Ye Yuan, Can (Sam) Chen, Christopher Pal and Xue Liu's paper, **ParetoFlow: Guided Flows in Multi-Objective Optimization**, pinned to [arXiv:2412.03718v2](https://arxiv.org/html/2412.03718v2), 20 February 2025, CC BY 4.0. It uses the standard `article-theme` with a checked citation-preview patch. This is an attributed interactive edition, not the authors' official repository.
+
+The interactive applications and experimental records are maintained independently in **[paretoflow-dash](https://github.com/mikuknightforever/paretoflow-dash)**. The article embeds Dash pages over HTTP; neither repository imports files from the other. They may be cloned to any directories and updated separately.
 
 ## Read locally
 
+The article requires Node.js 20+, Bun and PowerShell. First-time startup downloads the pinned MyST CLI and article theme, then validates and applies the citation-preview patch.
+
+In one terminal, clone and start the article:
+
 ```powershell
+git clone https://github.com/mikuknightforever/paretoflow-myst.git
+cd paretoflow-myst
+./start.ps1 -Port 3003
+```
+
+In another terminal, clone and start the Dash companion (Python 3.10–3.12):
+
+```powershell
+git clone https://github.com/mikuknightforever/paretoflow-dash.git
+cd paretoflow-dash
+python -m pip install -r requirements.txt
 ./start.ps1
 ```
 
-The launcher defaults to http://localhost:3003. Start the Dash companion separately with its own `./start.ps1`; its focused routes use http://localhost:8053. An already running preview may use another article port.
+Open http://localhost:3003 to read the article. Dash uses http://localhost:8053. Keep both terminals running to use the embedded dashboards. The recorded data is included in the Dash repository; viewing does not require training, a GPU or PyTorch. An existing preview may use another article port.
+
+This remains a local preview: repository pages do not run the dashboards. The iframe URLs currently point to `localhost:8053`.
+
+## Build and validation
+
+Run `./build.ps1 -SiteOnly` to build the four MyST pages or `./build.ps1` to export static HTML. Both commands verify the theme patch before and after the build. See [theme/README.md](theme/README.md) for the patch and its regression tests. Dash tests and experiment validation belong to the [Dash repository](https://github.com/mikuknightforever/paretoflow-dash/blob/main/VALIDATION.md).
 
 ## Article structure
 
@@ -26,3 +49,9 @@ Original prose blocks carry `source-begin` / `source-end` comments for fidelity 
 The method and process panels replay actual decisions from a separate reduced CPU experiment. The guidance and neighbor geometry panels use constructed explanatory examples. Local supporting views explore the same recorded experiment. They do not rerun the authors' full benchmark, train on interaction or perform live sampling. Original benchmark evidence is read in the paper's tables and figures; the article no longer embeds or links to the four panels that replot ranks, task results, published ablations or timings.
 
 The added experiment's settings, limitations and provenance are described in `supplements.md` and the Dash project's manifest. The interface changes preserve the sampler's existing recorded decisions, checkpoints and sample data.
+
+## Repository history
+
+This repository was split from the `article/` directory of [paretoflow-interactive-paper at cbcb17f](https://github.com/mikuknightforever/paretoflow-interactive-paper/tree/cbcb17f673fca3f81bdf0c7062a3dcbbd0d8110c), preserving the article's relevant commit history. The original combined repository remains available as a historical snapshot.
+
+After the split, all four pages built successfully from this repository root with a fresh theme download. All 13 original image hashes match the source manifest; SVG and source HTML files are exempt from checkout line-ending conversion to preserve their downloaded bytes.

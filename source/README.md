@@ -9,3 +9,5 @@ The original is [arXiv:2412.03718v2](https://arxiv.org/html/2412.03718v2), dated
 - `render-audit.json` checks the built MyST page structure, caption placement, images and math rendering.
 
 These records concern the original paper transcription. The independently computed local experiment is documented separately in `supplements.md` and the Dash project's provenance files. The source text and images retain the original authorship; interactive companions and reading guidance are additions to this edition.
+
+The validation reports are historical snapshots from before the repository split. Paths beginning with `article/`, `article\`, or the original workstation directory identify that earlier layout; they are not runtime dependencies. The `assets-manifest.json` local asset paths have been updated to this repository root, while source URLs and content hashes remain unchanged. Experimental data, sampler patches and their provenance are maintained in [paretoflow-dash](https://github.com/mikuknightforever/paretoflow-dash).

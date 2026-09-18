@@ -1,0 +1,6 @@
+* text=auto
+content/figures/*.svg -text
+source/paper-v2.html -text
+*.npy binary
+*.npz binary
+*.pt binary
